@@ -1,0 +1,85 @@
+# Workflow for building a Sphinx site and deploying artifacts to GitHub Releases
+name: Build Sphinx docs
+
+on:
+  push: {}
+  pull_request: {}
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - name: Run pre-commit
+        run: |
+          pip install -U pip setuptools wheel
+          pip install -r .devcontainer/requirements.txt
+          pre-commit install
+          pre-commit run -a -v --color always
+      - name: Build docs
+        run: |
+          nox -e 'docs-html(gen_sitevars=True, clean=True)'
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: salt-user-guide
+          path: ./docs/_build/html/
+          if-no-files-found: error
+          retention-days: 1
+
+  # Release job
+  deploy:
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    needs:
+      - build
+    if: success() && startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+      - name: Display all downloaded archives/artifacts
+        run: |
+          ls -lah
+
+          echo "
+          Listing salt-user-guide/*..."
+          ls -lah salt-user-guide/*
+
+          echo "
+          Creating archive of built salt-user-guide..."
+          tar cvfz salt-user-guide.tar.gz salt-user-guide
+
+          echo "
+          Creating checksums.txt..."
+          sha512sum salt-user-guide.tar.gz salt.repo salt.sources | tee checksums.txt
+
+      - name: Release
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda
+        with:
+          files: |
+            checksums.txt
+            salt-user-guide.tar.gz

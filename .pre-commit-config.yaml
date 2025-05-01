@@ -1,8 +1,8 @@
 ---
-minimum_pre_commit_version: 2.9.3
+minimum_pre_commit_version: 4.2.0
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v5.0.0
     hooks:
       - id: check-merge-conflict
         description: Check for files that contain merge conflict strings.
@@ -29,19 +29,19 @@ repos:
           You must provide list of target files as input in your .pre-commit-config.yaml file.
         files: ^(.*requirements.*\.txt|\.brokignore|sitevars.rst)$
   - repo: https://github.com/timothycrosley/isort
-    rev: "5.11.5"
+    rev: "6.0.1"
     hooks:
       - id: isort
         description: isort is a Python utility / library to sort imports automatically.
         files: ^((noxfile|conf)|docs/_includes/python/.*)\.py$
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 25.1.0
     hooks:
       - id: black
         description: Forces best practice formatting of Python code files.
         files: ^((noxfile|conf)|docs/_includes/python/.*)\.py$
   - repo: https://github.com/myint/rstcheck
-    rev: 3f92957 # Latest as of 05/17/2020
+    rev: v6.2.4 # Latest as of 05/17/2020
     hooks:
       - id: rstcheck
         description: Checks syntax of reStructuredText/rst and code blocks nested within it.
@@ -50,12 +50,12 @@ repos:
         files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
         exclude: docs/topics/pillar.rst
   - repo: https://github.com/asottile/blacken-docs
-    rev: v1.10.0
+    rev: 1.19.1
     hooks:
       - id: blacken-docs
         description: Run black on python code blocks in documentation files.
         files: ^(index|docs/.*|docs/_includes/.*)\.rst$
-        additional_dependencies: [black==21.8b0]
+        additional_dependencies: [black==25.1.0]
 #  - repo: local
 #    hooks:
 #      - id: vendir
@@ -72,7 +72,7 @@ repos:
 #        language: system
 #        files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
   - repo: https://github.com/saltstack/mirrors-nox
-    rev: v2022.8.7
+    rev: v2022.11.21
     hooks:
       - id: nox
         alias: Generate Sphinx docs
