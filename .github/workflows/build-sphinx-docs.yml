@@ -39,7 +39,7 @@ jobs:
           pre-commit run -a -v --color always
       - name: Build docs
         run: |
-          nox -e 'docs-html(gen_sitevars=True, clean=True)'
+          nox -e 'docs-html(clean=True)'
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
