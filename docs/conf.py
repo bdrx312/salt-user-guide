@@ -110,7 +110,7 @@ extensions = [
     "sphinx-prompt", # Required by sphinx_substitution_extensions
     "sphinx_inline_tabs",
     "sphinx_substitution_extensions",
-    "sphinx-sitemap", # Required for the sitemap
+    'sphinx_sitemap', # Required for the sitemap
 ]
 
 
