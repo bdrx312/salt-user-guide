@@ -1,6 +1,6 @@
 FROM bitnami/python:3.13
 
-RUN apt update && apt upgrade -y
+RUN apt update && apt upgrade -y && apt install vim -y
 
 # Add dev requirements
 ADD requirements.txt /tmp/
