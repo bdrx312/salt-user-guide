@@ -109,8 +109,10 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx-prompt", # Required by sphinx_substitution_extensions
     "sphinx_inline_tabs",
-    "sphinx_substitution_extensions"
+    "sphinx_substitution_extensions",
+    'sphinx_sitemap', # Required for the sitemap
 ]
+
 
 source_suffix = ".rst"
 
@@ -138,6 +140,7 @@ exclude_patterns = [
 html_show_sourcelink = True  # False on private repos; True on public repos
 html_theme = 'furo'
 html_title = project
+html_baseurl = 'https://docs.saltproject.io/salt/user-guide/en/latest/'
 
 html_theme_options = {
     "dark_css_variables": {
