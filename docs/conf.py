@@ -127,8 +127,14 @@ html_show_sourcelink = True  # False on private repos; True on public repos
 html_theme = 'furo'
 html_title = project
 html_baseurl = 'https://docs.saltproject.io/salt/user-guide/'
+
 # Extends baseurl, in combination with version value
 sitemap_locales = ['en']
+# Pages we don't care to include in generated sitemap file
+sitemap_excludes = [
+    "search.html",
+    "genindex.html",
+]
 
 html_theme_options = {
     "dark_css_variables": {
