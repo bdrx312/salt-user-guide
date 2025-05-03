@@ -41,7 +41,7 @@ repos:
         description: Forces best practice formatting of Python code files.
         files: ^((noxfile|conf)|docs/_includes/python/.*)\.py$
   - repo: https://github.com/myint/rstcheck
-    rev: v6.2.4 # Latest as of 05/17/2020
+    rev: v6.2.4
     hooks:
       - id: rstcheck
         description: Checks syntax of reStructuredText/rst and code blocks nested within it.
@@ -56,21 +56,6 @@ repos:
         description: Run black on python code blocks in documentation files.
         files: ^(index|docs/.*|docs/_includes/.*)\.rst$
         additional_dependencies: [black==25.1.0]
-#  - repo: local
-#    hooks:
-#      - id: vendir
-#        name: vale-styles
-#        description: Pull down vale styles.
-#        entry: vendir sync
-#        language: system
-#        always_run: true
-#        pass_filenames: false
-#      - id: vale
-#        name: vale
-#        description: Checks style of reStructuredText/rst.
-#        entry: vale
-#        language: system
-#        files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
   - repo: https://github.com/saltstack/mirrors-nox
     rev: v2022.11.21
     hooks:

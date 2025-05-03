@@ -84,19 +84,7 @@ project = "Salt user guide"
 copyright = f"{copyright_year}, VMware, Inc."
 author = "VMware, Inc."
 
-# Variables to pass into the docs from sitevars.txt for rst substitution
-with open("sitevars.rst") as site_vars_file:
-    site_vars = site_vars_file.read().splitlines()
-
-rst_prolog = """
-{}
-""".format(
-    "\n".join(site_vars[:])
-)
-
-# Pull release from "release" in sitevars.rst
-release = [s for s in site_vars if "|release|" in s][0].split(":: ")[1]
-version = release
+version = "latest"
 
 # -- General configuration ---------------------------------------------------
 
@@ -113,7 +101,6 @@ extensions = [
     'sphinx_sitemap', # Required for the sitemap
 ]
 
-
 source_suffix = ".rst"
 
 # Add any paths that contain templates here, relative to this directory.
@@ -125,8 +112,7 @@ templates_path = ["_templates"]
 exclude_patterns = [
     "_build",
     "Thumbs.db",
-    ".DS_Store",
-    "sitevars.rst",
+    ".DS_Store"
 ]
 
 
@@ -140,7 +126,9 @@ exclude_patterns = [
 html_show_sourcelink = True  # False on private repos; True on public repos
 html_theme = 'furo'
 html_title = project
-html_baseurl = 'https://docs.saltproject.io/salt/user-guide/en/latest/'
+html_baseurl = 'https://docs.saltproject.io/salt/user-guide/'
+# Extends baseurl, in combination with version value
+sitemap_locales = ['en']
 
 html_theme_options = {
     "dark_css_variables": {
@@ -170,23 +158,3 @@ html_logo = "_static/img/SaltProject_altlogo_teal.png"
 # pixels large. Favicons can be up to at least 228x228. PNG
 # format is supported as well, not just .ico'
 html_favicon = "_static/img/SaltProject_Logomark_teal.png"
-
-###
-# PDF Generation / LaTeX configuration
-###
-# If generating PDFs in the future, should ensure external logo is copied local
-# https://gitlab.com/saltstack/open/salt-branding-guide/-/raw/master/logos/SaltProject_altlogo_teal.png?inline=true
-#latex_logo = "docs/_static/img/SaltProject_verticallogo_black.png"
-
-# Linux Biolinum, Linux Libertine: https://en.wikipedia.org/wiki/Linux_Libertine
-# Source Code Pro: https://github.com/adobe-fonts/source-code-pro/releases
-latex_elements = {
-    "inputenc": "",
-    "utf8extra": "",
-    "preamble": r"""
-    \usepackage{fontspec}
-    \setsansfont{Linux Biolinum O}
-    \setromanfont{Linux Libertine O}
-    \setmonofont{Source Code Pro}
-""",
-}

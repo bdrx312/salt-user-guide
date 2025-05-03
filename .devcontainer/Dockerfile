@@ -6,3 +6,6 @@ RUN apt update && apt upgrade -y
 ADD requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt
 RUN rm /tmp/requirements.txt
+
+# Help avoid "unsupported locale setting" in Sphinx
+RUN echo "export LC_ALL=C.UTF-8" > ~/.bashrc
